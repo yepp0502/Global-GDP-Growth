@@ -44,7 +44,7 @@ if st.session_state['selected'] == 'Overview':
         y=alt.Y('GDP per capita:Q', title='GDP per Capita (USD)', scale=alt.Scale(type='log')),
         color=alt.Color('Year:N', legend=None)
     ).properties(
-        title='Distribution of GDP per Capita (1970–2020)',
+        title=alt.TitleParams(text = 'Distribution of GDP per Capita (1970–2020)', anchor="middle"),
         width=700,
         height=450
     )
@@ -132,7 +132,7 @@ if st.session_state['selected'] == 'Background':
         color=highlight_cond,
         tooltip=['Country', 'GDP (Millions)']
     ).properties(
-        title=f'Top {top_n} Countries by GDP in 2021',
+        title=alt.TitleParams(text = f'Top {top_n} Countries by GDP in 2021', anchor="middle"),
         width=400,
         height=400
     )
@@ -143,7 +143,7 @@ if st.session_state['selected'] == 'Background':
         color=highlight_cond,
         tooltip=['Country', 'Year', 'GDP (Millions)']
     ).properties(
-        title=f'GDP Trends (1970–2021) for Top {top_n} Countries',
+        title=alt.TitleParams(text = f'GDP Trends (1970–2021) for Top {top_n} Countries', anchor = "middle"),
         width=600,
         height=400
     )
@@ -178,9 +178,9 @@ if st.session_state['selected'] == 'Background':
     ).properties(
         width=650,
         height=400,
-        title=f"Top {improve_n} Countries by GDP per Capita Rank Gain"
+        title=alt.TitleParams(text = f"Top {improve_n} Countries by GDP per Capita Rank Gain",
+                             anchor = "middle")
     )
-
     st.altair_chart(improve_chart, use_container_width=True)
 
 
@@ -269,7 +269,9 @@ if st.session_state['selected'] == 'ISIC Sector':
             color=alt.Color('Country:N'),
             tooltip=['Country', 'Year', sector_col, 'GDP (Millions)']
         ).properties(
-            title=f'GDP vs. {sector_label}',
+            title= alt.TitleParams(
+                text=f'GDP vs. {sector_label}',
+                anchor="middle"),
             width=600,
             height=400
         )
@@ -373,7 +375,10 @@ if st.session_state['selected'] == 'Additional Insights':
         ),
         tooltip=["Country", "Trade Type", "Trade Volume (Millions USD)", "GDP (Millions)"]
     ).add_params(brush).properties(
-        title="Trade vs GDP",
+        title=alt.TitleParams(
+        text="Trade vs GDP",
+        anchor="middle"
+    ),
         width=700,
         height=400
     )
@@ -398,7 +403,9 @@ if st.session_state['selected'] == 'Additional Insights':
         color=alt.Color("Development Status:N", scale=alt.Scale(domain=["Developed", "Developing"], range=["#2ca02c", "#ff7f0e"])),
         tooltip=["Country", "Government Consumption (Millions)", "GDP (Millions)", "Development Status"]
     ).transform_filter(brush).properties(
-        title="Government Consumption vs GDP",
+        title=alt.TitleParams(
+        text="Government Consumption vs GDP",
+        anchor="middle") ,
         width=700,
         height=400
     )
