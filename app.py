@@ -17,30 +17,38 @@ economy.rename(columns={
 }, inplace=True)
 
 # === Sidebar Navigation ===
-st.sidebar.markdown("""
-<h1 style='text-align: center; margin-bottom: 0.5rem;'>Navigation</h1>
-""", unsafe_allow_html=True)
-st.sidebar.markdown("""
-<h3 style='text-align: center;'>Go to</h3>
-""", unsafe_allow_html=True)
-# page = st.sidebar.radio("", ["Overview", "Background", "ISIC Sector", "Additional Insights"])
-
-# === Button State ===
+# Initialize session state
 if 'selected' not in st.session_state:
     st.session_state['selected'] = 'Overview'
 
-# === Navigation Buttons ===
-if st.sidebar.button("Overview", type="primary" if st.session_state['selected'] == 'Overview' else "secondary", use_container_width=True):
-    st.session_state['selected'] = 'Overview'
+# === Sidebar Header ===
+st.sidebar.markdown("<h1 style='text-align: center; margin-bottom: 0.5rem;'>Navigation</h1>", unsafe_allow_html=True)
+st.sidebar.markdown("<h3 style='text-align: center;'>Go to</h3>", unsafe_allow_html=True)
 
-if st.sidebar.button("Background", type="primary" if st.session_state['selected'] == 'Background' else "secondary", use_container_width=True):
-    st.session_state['selected'] = 'Background'
+# === Button Callback Functions ===
+def set_selected(page):
+    st.session_state['selected'] = page
 
-if st.sidebar.button("ISIC Sector", type="primary" if st.session_state['selected'] == 'ISIC Sector' else "secondary", use_container_width=True):
-    st.session_state['selected'] = 'ISIC Sector'
+# === Sidebar Buttons with Callbacks ===
+st.sidebar.button("Overview", key="btn_overview",
+    on_click=set_selected, args=("Overview",),
+    type="primary" if st.session_state['selected'] == 'Overview' else "secondary",
+    use_container_width=True)
 
-if st.sidebar.button("Additional Insights", type="primary" if st.session_state['selected'] == 'Additional Insights' else "secondary", use_container_width=True):
-    st.session_state['selected'] = 'Additional Insights'
+st.sidebar.button("Background", key="btn_background",
+    on_click=set_selected, args=("Background",),
+    type="primary" if st.session_state['selected'] == 'Background' else "secondary",
+    use_container_width=True)
+
+st.sidebar.button("ISIC Sector", key="btn_isic",
+    on_click=set_selected, args=("ISIC Sector",),
+    type="primary" if st.session_state['selected'] == 'ISIC Sector' else "secondary",
+    use_container_width=True)
+
+st.sidebar.button("Additional Insights", key="btn_insights",
+    on_click=set_selected, args=("Additional Insights",),
+    type="primary" if st.session_state['selected'] == 'Additional Insights' else "secondary",
+    use_container_width=True)
 
 # === Page 1: Overview (Project Info, Boxplot, Objective) ===
 if st.session_state['selected'] == 'Overview':
