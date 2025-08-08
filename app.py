@@ -21,15 +21,12 @@ economy.rename(columns={
 if 'selected' not in st.session_state:
     st.session_state['selected'] = 'Overview'
 
-# === Sidebar Header ===
 st.sidebar.markdown("<h1 style='text-align: center; margin-bottom: 0.5rem;'>Navigation</h1>", unsafe_allow_html=True)
 st.sidebar.markdown("<h3 style='text-align: center;'>Go to</h3>", unsafe_allow_html=True)
 
-# === Button Callback Functions ===
 def set_selected(page):
     st.session_state['selected'] = page
 
-# === Sidebar Buttons with Callbacks ===
 st.sidebar.button("Overview", key="btn_overview",
     on_click=set_selected, args=("Overview",),
     type="primary" if st.session_state['selected'] == 'Overview' else "secondary",
